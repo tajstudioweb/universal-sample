@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5f0">
+  <meta name="description" content="A delicious experience awaits.">
+  <title>Restaurant Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="announcement" id="announcement"></div>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Home">
+      <span class="brand-mark" id="brand-mark">R</span>
+      <span class="brand-copy"><strong id="business-name">Restaurant</strong><small id="brand-tagline">Made with care</small></span>
+    </a>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button>
+    <nav class="nav" id="nav">
+      <a href="#menu">Menu</a><a href="#story">Our story</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a>
+      <a class="nav-cta" id="nav-order" href="#contact">Order now <span>↗</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow" id="hero-eyebrow">GOOD FOOD. GOOD MOOD.</p>
+        <h1 id="hero-title">A little taste of <em>something special.</em></h1>
+        <p class="hero-description" id="hero-description">Thoughtful ingredients, fresh flavours and food worth sharing.</p>
+        <div class="hero-actions"><a class="button button-primary" id="hero-order" href="#contact">Explore our menu <span>↗</span></a><a class="text-link" href="#story">Get to know us <span>→</span></a></div>
+        <div class="hero-note"><span class="note-dot"></span><span id="hero-note">Freshly prepared, every day</span></div>
+      </div>
+      <div class="hero-visual">
+        <img id="hero-image" src="" alt="Featured restaurant dish">
+        <div class="image-stamp"><span>MADE</span><strong>FRESH</strong><span>WITH LOVE</span></div>
+        <div class="hero-caption"><span id="hero-image-caption">A table worth gathering around</span><span>✳</span></div>
+      </div>
+    </section>
+
+    <section class="quick-info" aria-label="Restaurant information">
+      <div><span class="info-icon">◷</span><span><small>OPENING HOURS</small><strong id="hours-short">Every day · 12 PM – 11 PM</strong></span></div>
+      <div><span class="info-icon">⌖</span><span><small>FIND US</small><strong id="address-short">Your neighbourhood</strong></span></div>
+      <div><span class="info-icon">✳</span><span><small>OUR PROMISE</small><strong id="promise-short">Freshness in every bite</strong></span></div>
+    </section>
+
+    <section class="section menu-section" id="menu">
+      <div class="section-heading">
+        <div><p class="eyebrow">A FEW FAVOURITES</p><h2>Made to be <em>enjoyed.</em></h2></div>
+        <p class="section-intro">A little something for every craving. Take a look at what’s cooking.</p>
+      </div>
+      <div class="menu-grid" id="menu-grid"></div>
+      <div class="center-action"><a class="button button-outline" id="full-menu-link" href="#contact">Ask for the full menu <span>↗</span></a></div>
+    </section>
+
+    <section class="story-section" id="story">
+      <div class="story-image"><img id="story-image" src="" alt="Restaurant food being prepared"></div>
+      <div class="story-copy"><p class="eyebrow">A LITTLE ABOUT US</p><h2 id="story-title">Good food brings people <em>together.</em></h2><p id="story-text">We believe the best meals are the ones shared. That’s why we focus on fresh ingredients, thoughtful preparation and flavours that keep you coming back.</p><a class="text-link" href="#contact">Come say hello <span>→</span></a></div>
+    </section>
+
+    <section class="section gallery-section" id="gallery">
+      <div class="section-heading"><div><p class="eyebrow">FROM OUR KITCHEN</p><h2>A feast for the <em>eyes.</em></h2></div><p class="section-intro">A glimpse of the flavours, moments and details that make us who we are.</p></div>
+      <div class="gallery-grid" id="gallery-grid"></div>
+    </section>
+
+    <section class="visit-section" id="contact">
+      <div class="visit-copy"><p class="eyebrow">YOUR TABLE IS WAITING</p><h2>Come hungry.<br><em>Leave happy.</em></h2><p id="visit-text">Questions, reservations or a craving you need to satisfy? We’re just a message away.</p><div class="visit-actions"><a class="button button-light" id="whatsapp-link" href="#" target="_blank" rel="noopener">Chat on WhatsApp <span>↗</span></a><a class="visit-phone" id="phone-link" href="tel:+910000000000">Call us</a></div></div>
+      <div class="visit-details"><div><small>VISIT US</small><strong id="full-address">Your address goes here</strong><a id="maps-link" href="#" target="_blank" rel="noopener">Get directions ↗</a></div><div><small>OPENING HOURS</small><strong id="full-hours">Monday – Sunday<br>12:00 PM – 11:00 PM</strong></div><div><small>FOLLOW ALONG</small><strong id="social-name">@yourrestaurant</strong><a id="social-link" href="#" target="_blank" rel="noopener">Instagram ↗</a></div></div>
+    </section>
+  </main>
+
+  <footer class="footer"><a class="footer-brand" href="#home" id="footer-name">Restaurant</a><span id="footer-copy">© 2026 Restaurant. All rights reserved.</span><span class="made-by">A website concept by <strong>TAJ STUDIO</strong></span></footer>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
