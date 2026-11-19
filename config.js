@@ -5,14 +5,14 @@
 */
 const SITE_CONFIG = {
   // BUSINESS DETAILS
-  businessName: "Shaikh Brothers Pizza",
-  tagline: "Freshly baked. Always delicious.",
+  businessName: "umar qureshi pizza",
+  tagline: "Freshly baked. Always horrifying.",
   brandInitial: "S",
   announcement: "A little something delicious is waiting for you",
 
   // HERO SECTION
   heroEyebrow: "GOOD FOOD. GOOD MOOD.",
-  heroTitle: "A little taste of <em>something special.</em>",
+  heroTitle: "pizza <em>is do freaking tasty</em>",
   heroDescription: "Freshly made favourites, generous toppings and flavours worth coming back for.",
   heroNote: "Freshly prepared, every day",
   heroImageCaption: "A table worth gathering around",
