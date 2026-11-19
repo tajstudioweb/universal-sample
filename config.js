@@ -11,7 +11,7 @@ const SITE_CONFIG = {
   announcement: "A little something delicious is waiting for you",
 
   // HERO SECTION
-  heroEyebrow: "GOOD FOOD. GOOD MOOD.",
+  heroEyebrow: "GOOD wife. GOOD sex.",
   heroTitle: "pizza <em>is do freaking tasty</em>",
   heroDescription: "Freshly made favourites, generous toppings and flavours worth coming back for.",
   heroNote: "Freshly prepared, every day",
