@@ -21,3 +21,12 @@ For phone and WhatsApp, use digits only with country code (India: `91`), e.g. `9
 - Images use remote Unsplash URLs in the demo. For client delivery, use customer-approved images and consider placing them in `assets/` so they remain under your control.
 - This is a demo template: replace sample menu items, prices, address and contact details before showing it as a real business website.
 - `heroTitle` and `storyTitle` support simple HTML emphasis with `<em>...</em>`. Other config text is inserted as text.
+
+
+## Live config editor
+1. Open `editor.html` in a browser (or publish the folder on GitHub Pages and open `/editor.html`).
+2. Edit the JSON in the left panel. The website preview on the right updates as you type.
+3. Click **Download config.js** to export the personalized customer configuration.
+4. Replace the project's existing `config.js` with the downloaded file for the final customer website.
+
+The editor is a browser-side tool. It does not upload customer data to a server.

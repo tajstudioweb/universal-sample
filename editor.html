@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171916">
+<title>TAJ Sample Engine — Live Config Editor</title>
+<style>
+:root{color-scheme:dark;--bg:#111310;--panel:#1b1e1a;--line:#30352e;--muted:#a2aa9d;--green:#b7c7a5;--white:#f3f4ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:14px/1.5 Inter,system-ui,sans-serif}
+.top{height:64px;padding:0 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-weight:800;letter-spacing:.14em;font-size:12px}.logo span{color:var(--green)}
+.top small{color:var(--muted);font-size:11px}.layout{display:grid;grid-template-columns:minmax(310px,420px) 1fr;height:calc(100vh - 64px)}
+.editor{padding:20px;overflow:auto;border-right:1px solid var(--line)}.heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+h1{font-size:19px;margin:0}p{color:var(--muted);font-size:12px;margin:5px 0 0}
+.status{font-size:10px;color:var(--green);border:1px solid #43513c;padding:5px 8px;border-radius:20px;white-space:nowrap}
+label{display:block;color:#d8ddd3;font-size:11px;font-weight:650;margin:13px 0 6px}
+textarea{width:100%;min-height:calc(100vh - 260px);resize:vertical;background:#10120f;color:#dce7d5;border:1px solid var(--line);border-radius:8px;padding:14px;font:12px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;tab-size:2;outline:none}
+textarea:focus{border-color:#829474}.buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{border:1px solid var(--line);background:#252a23;color:var(--white);border-radius:6px;padding:10px 13px;font-weight:650;font-size:11px;cursor:pointer}
+button.primary{background:var(--green);color:#172015;border-color:var(--green)}button:hover{filter:brightness(1.08)}
+.help{margin-top:12px;padding:11px 12px;border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:11px}
+.preview{min-width:0;display:flex;flex-direction:column;background:#d9d9d9}.preview-bar{height:46px;background:#1b1e1a;color:#cbd2c5;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-size:10px}
+.preview-bar span:last-child{color:#9eaa96}iframe{width:100%;height:100%;border:0;background:#f7f5f0}
+.error{color:#ffaaa0;white-space:pre-wrap;font-size:11px;margin-top:10px}
+@media(max-width:850px){.layout{height:auto;min-height:calc(100vh - 64px);grid-template-columns:1fr}.editor{border-right:0;border-bottom:1px solid var(--line)}textarea{min-height:390px}.preview{height:75vh}.top small{display:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="logo">TAJ <span>STUDIO</span> / SAMPLE ENGINE</div><small>CONFIG EDITOR · V1.1</small></header>
+<div class="layout">
+  <section class="editor">
+    <div class="heading"><div><h1>Live configuration</h1><p>Edit the customer data. Preview updates as you type.</p></div><span class="status" id="status">● LIVE</span></div>
+    <label for="config">Customer config (JSON)</label>
+    <textarea id="config" spellcheck="false" aria-label="Customer configuration JSON"></textarea>
+    <div class="buttons">
+      <button class="primary" id="apply">Update preview</button>
+      <button id="download">Download config.js</button>
+      <button id="reset">Reset demo</button>
+    </div>
+    <div class="help">Tip: change <b>businessName</b>, <b>phone</b>, <b>whatsapp</b>, <b>theme</b>, <b>images</b> and <b>menu</b>. Phone numbers should include country code, digits only. Keep valid JSON syntax.</div>
+    <div class="error" id="error" role="alert"></div>
+  </section>
+  <section class="preview">
+    <div class="preview-bar"><span>LIVE CUSTOMER PREVIEW</span><span>Responsive website · Preview only</span></div>
+    <iframe id="preview" title="Live customer website preview" src="index.html"></iframe>
+  </section>
+</div>
+<script src="config.js"></script>
+<script>
+(() => {
+  const area = document.getElementById("config");
+  const frame = document.getElementById("preview");
+  const status = document.getElementById("status");
+  const error = document.getElementById("error");
+  const starter = window.SITE_CONFIG || {};
+  const pretty = (obj) => JSON.stringify(obj, null, 2);
+  area.value = pretty(starter);
+  let lastValid = starter;
+  let updateTimer;
+  function send(config) {
+    if (!frame.contentWindow) return;
+    frame.contentWindow.postMessage({type:"TAJ_CONFIG_PREVIEW", config}, "*");
+  }
+  function parseAndPreview() {
+    try {
+      const config = JSON.parse(area.value);
+      if (!config || Array.isArray(config) || typeof config !== "object") throw new Error("Config must be a JSON object.");
+      lastValid = config;
+      error.textContent = "";
+      status.textContent = "● LIVE";
+      send(config);
+    } catch (e) {
+      error.textContent = "Config error: " + e.message;
+      status.textContent = "● CHECK JSON";
+    }
+  }
+  area.addEventListener("input", () => {
+    status.textContent = "● UPDATING";
+    clearTimeout(updateTimer);
+    updateTimer = setTimeout(parseAndPreview, 350);
+  });
+  document.getElementById("apply").addEventListener("click", parseAndPreview);
+  frame.addEventListener("load", () => send(lastValid));
+  document.getElementById("reset").addEventListener("click", () => {
+    area.value = pretty(starter);
+    parseAndPreview();
+  });
+  document.getElementById("download").addEventListener("click", () => {
+    try {
+      const config = JSON.parse(area.value);
+      const js = "/* TAJ SAMPLE ENGINE — CUSTOMER CONFIG */\nconst SITE_CONFIG = " + JSON.stringify(config, null, 2) + ";\n";
+      const blob = new Blob([js], {type:"text/javascript;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = "config.js"; a.click();
+      URL.revokeObjectURL(url);
+      error.textContent = "";
+    } catch (e) {
+      error.textContent = "Cannot download: " + e.message;
+    }
+  });
+})();
+</script>
+</body>
+</html>
